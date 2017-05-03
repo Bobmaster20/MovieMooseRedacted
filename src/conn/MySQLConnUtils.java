@@ -13,7 +13,7 @@ public static Connection getMySQLConnection()
     String hostName = "localhost";
     String dbName = "sys";
     String userName = "root";
-    String password = "qazwsx";
+    String password = "Naruhina20";
     return getMySQLConnection(hostName, dbName, userName, password);
 }
  

@@ -93,6 +93,28 @@
     <div class="medium-8 columns ">
     
    		<!--Content-->
+        <!--Title-->
+        
+        <div class="medium-12 columns" style="border-bottom:thin solid #1F1F1F;" ><h3 id="title" style="text-align:center">Customer Email</h3></div>
+    	<table style="width:100%">
+		<tr>
+			<th>SSN</th>
+			<th>First Name</th>
+			<th>Last Name</th> 
+			<th>Address</th>
+			<th>Email</th>
+		</tr>
+		<c:forEach items="${mailingList}" var="mailing" >
+          <tr>
+             <td style="text-align:center">${mailing.SSN}</td>
+             <td style="text-align:center">${mailing.firstName}</td>
+             <td style="text-align:center">${mailing.lastName}</td>
+             <td style="text-align:center">${mailing.address}</td>
+             <td style="text-align:center">${mailing.email}</td>
+          </tr>
+       </c:forEach>
+		</table>
+        	
                 		
 		<!--Content End-->
     </div>

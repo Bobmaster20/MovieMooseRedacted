@@ -3,6 +3,8 @@ package servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Employee;
+import beans.MailingBean;
 import beans.Person;
 import utils.DBUtils;
 import utils.MyUtils;
@@ -28,51 +31,48 @@ public class EmployeeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		String ssn = request.getParameter("ssn_text");
-		Employee test = MyUtils.getEmployee(request.getSession());
+		Employee employee = MyUtils.getEmployee(request.getSession());
 
 		System.out.println(action);
-		System.out.println(ssn);
-		if (ssn == null) {
-			ssn = test.getSsn();
-		}
-		System.out.println(test);
 
 		Person person = null;
 		boolean hasError = false;
 		String errorString = null;
 
-		// Redirect to home
-		if (ssn == null || ssn.length() != 11) {
-			response.sendRedirect("http://localhost:8080/MovieMoose/");
+		person = MyUtils.getLoginedUser(request.getSession());
+		System.out.println(person.getFirstName());
+		System.out.println(person.getLastName());
+		
+		// Store info in request attribute, before forward to views
+		request.setAttribute("errorString", errorString);
+		request.setAttribute("person", person);
+		request.setAttribute("action", action);
+		if (action == null){
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/employeeView.jsp");
+
+			dispatcher.forward(request, response);
 			return;
-		} else {
+		}else if (action.equals("1")){
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/emp_place_order.jsp");
+
+			dispatcher.forward(request, response);
+			return;
+		}else if (action.equals("2")){
 			// Valid SSN I guess.
 			Connection conn = MyUtils.getStoredConnection(request);
+			List<MailingBean> list = null;
 			try {
-
-				person = DBUtils.findPerson(conn, ssn);
-
-				if (person == null) {
-					hasError = true;
-					errorString = "SSN invalid";
-				} else {
-					System.out.println(person.getFirstName());
-					System.out.println(person.getLastName());
-					MyUtils.storeLoginedUser(request.getSession(), person);
-				}
+				list = DBUtils.findMailing(conn);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				hasError = true;
 				errorString = e.getMessage();
 			}
+			request.setAttribute("mailingList", list);
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/emp_cust_email.jsp");
+			dispatcher.forward(request, response);
+			return;
 		}
-
-		// Store info in request attribute, before forward to views
-		request.setAttribute("errorString", errorString);
-		request.setAttribute("person", person);
-		request.setAttribute("action", action);
-		request.setAttribute("ssn", ssn);
 		// Forward to /WEB-INF/views/homeView.jsp
 		// (Users can not access directly into JSP pages placed in WEB-INF)
 		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/employeeView.jsp");

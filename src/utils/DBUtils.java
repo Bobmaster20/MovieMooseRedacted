@@ -9,6 +9,7 @@ import java.util.List;
 
 import beans.Customer;
 import beans.Employee;
+import beans.MailingBean;
 import beans.Person;
 
 public class DBUtils {
@@ -75,6 +76,32 @@ public class DBUtils {
 
 		return null;
 
+	}
+	
+	public static List<MailingBean> findMailing(Connection conn) throws SQLException {
+	      String sql = "SELECT  P.SSN, P.FirstName, P.LastName, P.Address, C.Email FROM    Customer C, Person P WHERE   C.Id = P.SSN";
+	      
+	      PreparedStatement pstm = conn.prepareStatement(sql);
+	      
+	      ResultSet rs = pstm.executeQuery();
+	      List<MailingBean> list = new ArrayList<MailingBean>();
+	      System.out.println(rs);
+	      while (rs.next()) {
+	          String ssn = rs.getString("ssn");
+	          String firstName = rs.getString("FirstName");
+	          String lastName = rs.getString("LastName");
+	          String address = rs.getString("Address");
+	          String email = rs.getString("Email");
+	          MailingBean mailing = new MailingBean();
+	          mailing.setSSN(ssn);
+	          mailing.setFirstName(firstName);
+	          mailing.setLastName(lastName);
+	          mailing.setAddress(address);
+	          mailing.setEmail(email);
+	          list.add(mailing);
+	      }
+	      return list;
+		
 	}
 
 }
