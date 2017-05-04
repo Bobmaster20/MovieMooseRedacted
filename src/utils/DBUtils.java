@@ -410,7 +410,7 @@ public class DBUtils {
 			pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, id);
 			pstm.setString(2, SSN);
-			pstm.setDate(3, (java.sql.Date) startDate);
+			pstm.setTimestamp(3, new java.sql.Timestamp(startDate.getTime()));
 			pstm.setDouble(4, hourlyRate);
 			success = pstm.executeUpdate();
 		}
@@ -418,7 +418,7 @@ public class DBUtils {
 	}
 
 	public static void editEmployee(Connection conn, String SSN, String lastName, String firstName, String address,
-			int zipCode, String telephone, int id, Date startDate, Double hourlyRate) throws SQLException {
+			int zipCode, String telephone, int id,Double hourlyRate) throws SQLException {
 		if (SSN.compareTo("") == 0) {
 			return;
 		}
@@ -494,17 +494,6 @@ public class DBUtils {
 			}
 		}
 
-		if (startDate != null) {
-			String sql = "UPDATE Employee SET StartDate = ? WHERE SSN = ?";
-
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm.setDate(1, (java.sql.Date) startDate);
-			pstm.setString(2, SSN);
-			int success = pstm.executeUpdate();
-			if (success == 0) {
-				return;
-			}
-		}
 
 		if (hourlyRate != 0.0) {
 			String sql = "UPDATE Employee SET hourlyRate = ? WHERE SSN = ?";
@@ -563,7 +552,7 @@ public class DBUtils {
 
 	public static void editMovie(Connection conn, int id, String name, String type, int rating, double distrfee,
 			int numcopies) throws SQLException {
-		if (id != 0) {
+		if (id == 0) {
 			return;
 		}
 		if (name.compareTo("") != 0) {
@@ -629,7 +618,7 @@ public class DBUtils {
 	}
 
 	public static void deleteMovie(Connection conn, int id) throws SQLException {
-		if (id != 0) {
+		if (id == 0) {
 			return;
 		}
 

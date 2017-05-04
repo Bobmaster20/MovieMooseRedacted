@@ -129,11 +129,20 @@
     				<div class="medium-4 columns ">
             			<label style="padding:9px 0px"><b>Telephone#:</b></label>
     				</div>
+    				<div class="medium-8 columns ">
+      					<input name="telephone_txt" type="text" placeholder="Enter the telephone #" />
+    				</div>
     				<div class="medium-4 columns ">
             			<label style="padding:9px 0px"><b>Hourly Wage:</b></label>
     				</div>
             		<div class="medium-8 columns ">
       					<input name="ccn_txt" type="text" placeholder="Enter the hourly wage" />
+    				</div>
+    				<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>ID:</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="id_txt" type="text" placeholder="Enter the ID" />
     				</div>
   				</div>
         		<div class="top-bar-right">

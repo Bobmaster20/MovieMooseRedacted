@@ -93,7 +93,7 @@
    		<!--Content-->
         <!--Title-->
         <div class="medium-12 columns" style="border-bottom:thin solid #1F1F1F;" ><h3 id="title" style="text-align:center">Delete Employee</h3></div>
-    	<form method="POST" action="Manager?action=7">
+    	<form method="POST" action="Manager?action=14">
     		<div class="medium-8 medium-centered columns" style="margin-top:15%; margin-bottom:15%;">
     			<div class="row">
 		           	<div class="medium-4 columns ">

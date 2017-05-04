@@ -93,7 +93,7 @@
     <div class="medium-8 columns ">
    		<!--Content-->
         <!--Title-->
-        <div class="medium-12 columns" style="border-bottom:thin solid #1F1F1F;" ><h3 id="title" style="text-align:center">Customer Email</h3></div>
+        <div class="medium-12 columns" style="border-bottom:thin solid #1F1F1F;" ><h3 id="title" style="text-align:center">Movies</h3></div>
     	<table style="width:100%">
 		<tr>
 			<th>ID</th>
