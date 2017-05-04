@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import beans.Employee;
 import beans.MailingBean;
+import beans.MovieList;
 import beans.Person;
 import utils.DBUtils;
 import utils.MyUtils;
@@ -91,7 +92,7 @@ public class EmployeeServlet extends HttpServlet {
 				errorString = e.getMessage();
 			}
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/employeeView.jsp");
-<<<<<<< HEAD
+
 			dispatcher.forward(request, response);
 			return;
 		// Send to add customer page
@@ -171,8 +172,25 @@ public class EmployeeServlet extends HttpServlet {
 				errorString = e.getMessage();
 			}
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/employeeView.jsp");
-=======
->>>>>>> 25edc8ed6914e6f56bf353f05319d36371f4a4bf
+			dispatcher.forward(request, response);
+			return;
+		}else if(action.equals("10")){
+			Connection conn = MyUtils.getStoredConnection(request);
+			String SSN = request.getParameter("search_text");
+			System.out.println(SSN);
+			List<MovieList> movies = null;
+			try {
+				movies = DBUtils.recommended(conn, SSN);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				hasError = true;
+				errorString = e.getMessage();
+			}
+			request.setAttribute("Movies", movies);
+
+			RequestDispatcher dispatcher = request.getServletContext()
+					.getRequestDispatcher("/WEB-INF/emp_cust_recom.jsp");
+
 			dispatcher.forward(request, response);
 			return;
 		}

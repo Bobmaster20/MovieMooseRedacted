@@ -43,7 +43,7 @@ public class CustomerServlet extends HttpServlet {
 		boolean hasError = false;
 		String errorString = null;
 		ArrayList<Order> orders = null;
-		ArrayList<MovieList> movies = null;
+		List<MovieList> movies = null;
 		person = MyUtils.getLoginedUser(request.getSession());
 		request.setAttribute("person", person);
 

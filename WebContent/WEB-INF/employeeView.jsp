@@ -27,7 +27,7 @@
 		            </div>
 		            <div class="top-bar-right">
 		                <ul class="menu">
-		                    <li><a href="#" class="button">Logout</a></li>           
+		                    <li><a href="/MovieMoose" class="button">Logout</a></li>           
 		                </ul>                
 		            </div>
 		        </div>
@@ -45,7 +45,6 @@
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
-                            <li><a href="#" class="button">Edit Account</a></li>  
 		                </ul>
 		            </div>
                     <div class="top-bar-right">
@@ -93,6 +92,7 @@
                 <li><h6>&nbsp;</h6></li>
                 <li><h6>&nbsp;</h6></li>
                 <li><h6>&nbsp;</h6></li>
+                <li><h6>&nbsp;</h6></li>
         </ul>
         <!--Side Menu End-->
     </div>
@@ -103,7 +103,7 @@
     </div>
 </div>
 <div>
-
+</div>
 
 </div>
 </div>

@@ -31,7 +31,7 @@
 					</div>
 					<div class="top-bar-right">
 						<ul class="menu">
-							<li><a href="#" class="button">Logout</a></li>
+							<li><a href="/MovieMoose" class="button">Logout</a></li>
 						</ul>
 					</div>
 				</div>
@@ -101,6 +101,12 @@
 				<div class="medium-1 columns">
 					<h6>&nbsp;</h6>
 					<ul class="vertical menu" style="border-left: thin solid #1F1F1F;">
+						<li><h6>&nbsp;</h6></li>
+						<li><h6>&nbsp;</h6></li>
+						<li><h6>&nbsp;</h6></li>
+						<li><h6>&nbsp;</h6></li>
+						<li><h6>&nbsp;</h6></li>
+						<li><h6>&nbsp;</h6></li>
 						<li><h6>&nbsp;</h6></li>
 						<li><h6>&nbsp;</h6></li>
 					</ul>

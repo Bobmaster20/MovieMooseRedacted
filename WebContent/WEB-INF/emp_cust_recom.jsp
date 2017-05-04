@@ -27,7 +27,7 @@
 		            </div>
 		            <div class="top-bar-right">
 		                <ul class="menu">
-		                    <li><a href="#" class="button">Logout</a></li>           
+		                    <li><a href="/MovieMoose" class="button">Logout</a></li>           
 		                </ul>                
 		            </div>
 		        </div>
@@ -45,7 +45,6 @@
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
-                            <li><a href="#" class="button">Edit Account</a></li>  
 		                </ul>
 		            </div>
                     <div class="top-bar-right">
@@ -93,6 +92,7 @@
                 <li><h6>&nbsp;</h6></li>
                 <li><h6>&nbsp;</h6></li>
                 <li><h6>&nbsp;</h6></li>
+                <li><h6>&nbsp;</h6></li>
         </ul>
         <!--Side Menu End-->
     </div>
@@ -101,24 +101,21 @@
    		<!--Content-->
         <!--Title-->
         
-        <div class="medium-12 columns" style="border-bottom:thin solid #1F1F1F;" ><h3 id="title" style="text-align:center">Customer Email</h3></div>
-    	<table style="width:100%">
-		<tr>
-			<th>SSN</th>
-			<th>First Name</th>
-			<th>Last Name</th> 
-			<th>Address</th>
-			<th>Email</th>
-		</tr>
-		<c:forEach items="${mailingList}" var="mailing" >
-          <tr>
-             <td style="text-align:center">${mailing.SSN}</td>
-             <td style="text-align:center">${mailing.firstName}</td>
-             <td style="text-align:center">${mailing.lastName}</td>
-             <td style="text-align:center">${mailing.address}</td>
-             <td style="text-align:center">${mailing.email}</td>
-          </tr>
-       </c:forEach>
+        <div class="medium-12 columns" style="border-bottom: thin solid #1F1F1F;"><h3 id="title" style="text-align: center">Recommended</h3>
+		</div>
+		<table style="width: 100%">
+			<tr>
+				<th>Movie ID</th>
+				<th>Movie Name</th>
+				<th>Type</th>
+			</tr>
+			<c:forEach items="${Movies}" var="movie">
+				<tr>
+					<td style="text-align: center">${movie.id}</td>
+					<td style="text-align: center">${movie.name}</td>
+					<td style="text-align: center">${movie.type}</td>
+				</tr>
+			</c:forEach>
 		</table>
         	
                 		

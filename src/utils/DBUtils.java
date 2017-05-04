@@ -193,12 +193,11 @@ public class DBUtils {
 
 	}
 
-	public static ArrayList<MovieList> recommended(Connection conn, String ssn) throws SQLException {
+	public static List<MovieList> recommended(Connection conn, String ssn) throws SQLException {
 
-		ArrayList<MovieList> list = new ArrayList<MovieList>();
+		List<MovieList> list = new ArrayList<MovieList>();
 
-		String sql = "SELECT M.Id, M.Name, M.Type FROM Movie M WHERE M.Type IN (SELECT O.MovieType FROM PastOrder O WHERE O.CustId = ?)  AND M.Id NOT IN (SELECT O.MovieId FROM PastOrder O WHERE O.CustId = ?)";
-
+		String sql = "SELECT M.Id, M.Name, M.Type FROM Movie M WHERE M.Type IN (SELECT O.MovieType FROM PastOrder O WHERE O.CustId = ?) AND M.Id NOT IN (SELECT O.MovieId FROM PastOrder O WHERE O.CustId = ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, ssn);
 		pstm.setString(2, ssn);
@@ -251,7 +250,6 @@ public class DBUtils {
 			}
 		}
 	}
-<<<<<<< HEAD
 	
 	public static void addCustomer(Connection conn, String SSN, String lastName, String firstName, String address, int zipCode, String telephone, String email, long creditCard) throws SQLException {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
@@ -388,21 +386,7 @@ public class DBUtils {
 			return;
 		}
 		
-		
-=======
 
-	public static void addCustomer(Connection conn, String SSN, String lastName, String firstName, String address,
-			int zipCode, String telephone, String email, long creditCard) throws SQLException {
-		String sql = "INSERT INTO Person VALUES (?, ?, ?, '700 Health Science Drive', 11790, '631-413-7777')";
-
-		sql = "INSERT INTO Customer VALUES ('777-77-7777', 'hiden@aol.com', 1, 373411111111111)";
-	}
-
-	public static void editCustomer() {
-
-	}
-
-	public static void deleteCustomer() {
 
 	}
 
@@ -492,7 +476,7 @@ public class DBUtils {
 
 		return list;
 
->>>>>>> 25edc8ed6914e6f56bf353f05319d36371f4a4bf
+
 	}
 
 }

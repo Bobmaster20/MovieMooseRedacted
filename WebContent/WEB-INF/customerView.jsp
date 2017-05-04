@@ -30,7 +30,7 @@
 					</div>
 					<div class="top-bar-right">
 						<ul class="menu">
-							<li><a href="#" class="button">Logout</a></li>
+							<li><a href="/MovieMoose" class="button">Logout</a></li>
 						</ul>
 					</div>
 				</div>
