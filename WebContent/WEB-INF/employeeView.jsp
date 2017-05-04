@@ -27,7 +27,7 @@
 		            </div>
 		            <div class="top-bar-right">
 		                <ul class="menu">
-		                    <li><a href="#" class="button">Logout</a></li>           
+		                    <li><a href="/MovieMoose" class="button">Logout</a></li>           
 		                </ul>                
 		            </div>
 		        </div>
@@ -45,19 +45,18 @@
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
-                            <li><a href="#" class="button">Edit Account</a></li>  
 		                </ul>
 		            </div>
                     <div class="top-bar-right">
-		                <form method="POST" action="doSignUp">
+		                <form method="POST" action="Employee?action=10">
     						<div class="medium-12 medium columns">
     							<div class="row">
 						    		<div class="medium-7 columns ">
-						      			<input type="text" name="ssn_text" placeholder="" />
+						      			<input type="text" name="search_text" placeholder="Enter Customer ID" />
 						    		</div>
                                     <div class="medium-5 columns " >
 						      			<ul class="menu" style="background-color:#ffffff">
-                    						<li id="search_btn"><input class="button" type="submit" value= "Search Customer" /></li>
+                    						<li id="search_btn"><input class="button" type="submit" value= "Recommendations" /></li>
                 						</ul>
 						    		</div>
 						  		</div>
@@ -79,6 +78,9 @@
 	            <li><h6>&nbsp;</h6></li>
 				<li id="place_order_btn"><a href="/MovieMoose/Employee?action=1" class="link"><b>Place Order</b></a></li>
                 <li id="cust_email_btn"><a href="/MovieMoose/Employee?action=2" class="link"><b>Customer Email</b></a></li>
+                <li id="cust_email_btn"><a href="/MovieMoose/Employee?action=4" class="link"><b>Add Customer</b></a></li>
+                <li id="cust_email_btn"><a href="/MovieMoose/Employee?action=6" class="link"><b>Edit Customer</b></a></li>
+                <li id="cust_email_btn"><a href="/MovieMoose/Employee?action=8" class="link"><b>Delete Customer</b></a></li>
 		    </ul>
 		</div>
     </div>
@@ -86,6 +88,10 @@
     	<h6>&nbsp;</h6>
     	<ul class="vertical menu" style="border-left: thin solid #1F1F1F;">
 	            <li><h6>&nbsp;</h6></li>
+                <li><h6>&nbsp;</h6></li>
+                <li><h6>&nbsp;</h6></li>
+                <li><h6>&nbsp;</h6></li>
+                <li><h6>&nbsp;</h6></li>
                 <li><h6>&nbsp;</h6></li>
         </ul>
         <!--Side Menu End-->
@@ -97,7 +103,7 @@
     </div>
 </div>
 <div>
-
+</div>
 
 </div>
 </div>

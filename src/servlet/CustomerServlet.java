@@ -43,7 +43,7 @@ public class CustomerServlet extends HttpServlet {
 		boolean hasError = false;
 		String errorString = null;
 		ArrayList<Order> orders = null;
-		ArrayList<MovieList> movies = null;
+		List<MovieList> movies = null;
 		person = MyUtils.getLoginedUser(request.getSession());
 		request.setAttribute("person", person);
 
@@ -200,7 +200,7 @@ public class CustomerServlet extends HttpServlet {
 				}
 				request.setAttribute("actor_list", movies);
 				RequestDispatcher dispatcher = request.getServletContext()
-						.getRequestDispatcher("/WEB-INF/custom_actors.jsp");
+						.getRequestDispatcher("/WEB-INF/customer_actors.jsp");
 				dispatcher.forward(request, response);
 				return;
 			}

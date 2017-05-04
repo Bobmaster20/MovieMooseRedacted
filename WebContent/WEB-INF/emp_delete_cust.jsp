@@ -1,11 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Manager</title>
+<title>Employee</title>
 <link href="css/app.css" rel="stylesheet" type="text/css">
 <link href="css/foundation.css" rel="stylesheet" type="text/css">
 <link href="css/foundation.min.css" rel="stylesheet" type="text/css">
+<link href="js/Employee.js" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -35,17 +38,31 @@
 				<div class="medium-12 columns ">
 		            <div class="top-bar-left">
 		                <ul class="menu">
-		                	<li style="background-color:#ffffff"><h6 id="first_name" style="color:#1F1F1F"><b>Eric</b></h6></li>
+		                	<li style="background-color:#ffffff"><h6 id="first_name" style="color:#1F1F1F"><b>${person.firstName}</b></h6></li>
 		                    <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
-		                    <li style="background-color:#ffffff"><h6 id="last_name" style="color:#1F1F1F"><b>Li</b></h6></li>
+		                    <li style="background-color:#ffffff"><h6 id="last_name" style="color:#1F1F1F"><b>${person.lastName}</b></h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
-                            <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
-                            <li><a href="#" class="button">Edit Account</a></li>  
+                            <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>  
 		                </ul>
 		            </div>
-                    
+                    <div class="top-bar-right">
+		                <form method="POST" action="doSignUp">
+    						<div class="medium-12 medium columns">
+    							<div class="row">
+						    		<div class="medium-7 columns ">
+						      			<input type="text" name="ssn_text" placeholder="" />
+						    		</div>
+                                    <div class="medium-5 columns " >
+						      			<ul class="menu" style="background-color:#ffffff">
+                    						<li id="search_btn"><input class="button" type="submit" value= "Search Customer" /></li>
+                						</ul>
+						    		</div>
+						  		</div>
+						    </div>
+					    </form>            
+		            </div>
                 </div>
             </div>
         </div>
@@ -59,12 +76,11 @@
 		<div class="top-bar-left">
 			<ul class="vertical menu" >
 	            <li><h6>&nbsp;</h6></li>
-				<li id="movies"><a href="#" class="link"><b>Movies</b></a></li>
-                <li id="employee"><a href="#" class="link"><b>Employees</b></a></li>
-                <li id="rentals"><a href="#" class="link"><b>Rentals</b></a></li>
-                <li id="best_emp"><a href="#" class="link"><b>Best Employee</b></a></li>
-                <li id="most_active_customer"><a href="#" class="link"><b>Most Active Customer</b></a></li>
-                <li id="most_rented_movies"><a href="#" class="link"><b>Most Rented Movie</b></a></li>	
+				<li id="place_order_btn"><a href="/MovieMoose/Employee?action=1" class="link"><b>Place Order</b></a></li>
+                <li id="cust_email_btn"><a href="/MovieMoose/Employee?action=2" class="link"><b>Customer Email</b></a></li>
+                <li id="cust_email_btn"><a href="/MovieMoose/Employee?action=4" class="link"><b>Add Customer</b></a></li>
+                <li id="cust_email_btn"><a href="/MovieMoose/Employee?action=6" class="link"><b>Edit Customer</b></a></li>
+                <li id="cust_email_btn"><a href="/MovieMoose/Employee?action=8" class="link"><b>Delete Customer</b></a></li>
 		    </ul>
 		</div>
     </div>
@@ -77,21 +93,36 @@
                 <li><h6>&nbsp;</h6></li>
                 <li><h6>&nbsp;</h6></li>
                 <li><h6>&nbsp;</h6></li>
-                <li><h6>&nbsp;</h6></li>
-                <li><h6>&nbsp;</h6></li>
         </ul>
         <!--Side Menu End-->
     </div>
     <div class="medium-8 columns ">
+    
    		<!--Content-->
         <!--Title-->
-        <div class="medium-12 columns " style="border-bottom:thin solid #1F1F1F;" >
-		<h3 id="title" style="text-align:center">Checkouts</h3>
-        </div>
-		
+        
+        <div class="medium-12 columns" style="border-bottom:thin solid #1F1F1F;" ><h3 id="title" style="text-align:center">Delete Customer</h3></div>
+    	<form method="POST" action="Employee?action=9">
+    		<div class="medium-8 medium-centered columns" style="margin-top:15%; margin-bottom:15%;">
+    			<div class="row">
+		           	<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>SSN</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="ssn_txt" type="text" placeholder="Enter the SSN" />
+    				</div>
+  				</div>
+        		<div class="top-bar-right">
+                	<ul class="menu">
+                   		<li style="padding-right:15px" id="register_btn"><input class="button" type="submit" value= "Delete Customer" /></li>
+                	</ul>
+         		</div>
+    		</div>
+    	</form>	
 		<!--Content End-->
     </div>
 </div>
+<div>
 
 
 </div>
