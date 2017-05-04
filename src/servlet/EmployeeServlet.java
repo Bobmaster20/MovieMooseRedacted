@@ -87,7 +87,7 @@ public class EmployeeServlet extends HttpServlet {
 				hasError = true;
 				errorString = e.getMessage();
 			}
-			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/EmployeeView.jsp");
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/employeeView.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}

@@ -44,6 +44,8 @@ public class CustomerServlet extends HttpServlet {
 		String errorString = null;
 		ArrayList<Order> orders = null;
 		ArrayList<MovieList> movies = null;
+		person = MyUtils.getLoginedUser(request.getSession());
+		request.setAttribute("person", person);
 
 		// Redirect to home
 
@@ -137,6 +139,54 @@ public class CustomerServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				return;
 
+			}
+
+			if (action.equals("6")) {
+				try {
+					String customerID = request.getParameter("cus_id_txt");
+					String accType = request.getParameter("acc_type_txt");
+					DBUtils.editAccount(conn, customerID, accType, ssn);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					hasError = true;
+					errorString = e.getMessage();
+				}
+				RequestDispatcher dispatcher = request.getServletContext()
+						.getRequestDispatcher("/WEB-INF/customer_edit_account.jsp");
+				dispatcher.forward(request, response);
+				return;
+			}
+
+			if (action.equals("7")) {
+				try {
+					String keyword = request.getParameter("search_text1");
+					movies = DBUtils.searchKeyword(conn, keyword);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					hasError = true;
+					errorString = e.getMessage();
+				}
+				request.setAttribute("keyword_list", movies);
+				RequestDispatcher dispatcher = request.getServletContext()
+						.getRequestDispatcher("/WEB-INF/customer_keyword.jsp");
+				dispatcher.forward(request, response);
+				return;
+			}
+
+			if (action.equals("8")) {
+				try {
+					String genre = request.getParameter("search_text");
+					movies = DBUtils.searchGenre(conn, genre);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					hasError = true;
+					errorString = e.getMessage();
+				}
+				request.setAttribute("genre_list", movies);
+				RequestDispatcher dispatcher = request.getServletContext()
+						.getRequestDispatcher("/WEB-INF/customer_genre.jsp");
+				dispatcher.forward(request, response);
+				return;
 			}
 
 		}

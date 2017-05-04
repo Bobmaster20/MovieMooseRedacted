@@ -215,53 +215,144 @@ public class DBUtils {
 		return list;
 
 	}
+
 	public static void placeOrder(Connection conn, int movieID, int accountID, int employeeID) throws SQLException {
 		String sql = "SELECT Id from orders  ORDER BY id DESC LIMIT 1";
-		
+
 		PreparedStatement pstm = conn.prepareStatement(sql);
-	      
-	    ResultSet rs = pstm.executeQuery();
-	    int orderID = 0;
-	    if(rs.next()){
-	    	orderID = rs.getInt("id");
-	    	orderID++;
-	    }
-	    
-	    sql = "INSERT INTO Orders (Id, DateTime, ReturnDate) VALUES (?, ?,NULL)";
-	    
-	    pstm = conn.prepareStatement(sql);
+
+		ResultSet rs = pstm.executeQuery();
+		int orderID = 0;
+		if (rs.next()) {
+			orderID = rs.getInt("id");
+			orderID++;
+		}
+
+		sql = "INSERT INTO Orders (Id, DateTime, ReturnDate) VALUES (?, ?,NULL)";
+
+		pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, orderID);
 		Date today = new Date();
 		pstm.setTimestamp(2, new Timestamp(today.getTime()));
 		System.out.println(new Timestamp(today.getTime()));
 		int success = pstm.executeUpdate();
-		
-		if(success != 0){
+
+		if (success != 0) {
 			sql = "INSERT INTO Rental (AccountId, CustRepId, OrderId, MovieId) VALUES (?, ?, ?, ?)";
-		    
-		    pstm = conn.prepareStatement(sql);
+
+			pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, accountID);
 			pstm.setInt(2, employeeID);
 			pstm.setInt(3, orderID);
 			pstm.setInt(4, movieID);
 			success = pstm.executeUpdate();
-			if(success != 0){
-				
+			if (success != 0) {
+
 			}
-	    }
+		}
 	}
-	
-	public static void addCustomer(Connection conn, String SSN, String lastName, String firstName, String address, int zipCode, String telephone, String email, long creditCard) throws SQLException {
+
+	public static void addCustomer(Connection conn, String SSN, String lastName, String firstName, String address,
+			int zipCode, String telephone, String email, long creditCard) throws SQLException {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, '700 Health Science Drive', 11790, '631-413-7777')";
-		
-		sql ="INSERT INTO Customer VALUES ('777-77-7777', 'hiden@aol.com', 1, 373411111111111)";
+
+		sql = "INSERT INTO Customer VALUES ('777-77-7777', 'hiden@aol.com', 1, 373411111111111)";
 	}
-	
-	public static void editCustomer(){
-		
+
+	public static void editCustomer() {
+
 	}
-	public static void deleteCustomer(){
-		
+
+	public static void deleteCustomer() {
+
+	}
+
+	public static void editAccount(Connection conn, String id, String type, String ssn) throws SQLException {
+
+		if (type != null) {
+			System.out.println(ssn);
+			System.out.println(type);
+			String sql = "UPDATE Account SET AccType= ?" + "WHERE Customer = ?";
+
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, type);
+			pstm.setString(2, ssn);
+			pstm.executeUpdate();
+		}
+
+		if (id != null) {
+			System.out.println(ssn);
+			System.out.println(id);
+			String sql = "UPDATE Person SET SSN = ?" + "WHERE SSN = ?";
+
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, id);
+			pstm.setString(2, ssn);
+			pstm.executeUpdate();
+		}
+
+	}
+
+	public static ArrayList<MovieList> searchGenre(Connection conn, String genre) throws SQLException {
+		System.out.println(genre);
+		ArrayList<MovieList> list = new ArrayList<MovieList>();
+
+		String sql = "SELECT M.Id, M.Name, M.Type FROM Movie M, HandOut H WHERE M.NumCopies>H.NumOut AND M.Type = ? "
+				+ "AND M.ID = H.MovieId";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, genre);
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			MovieList movie = new MovieList();
+			movie.setId(rs.getInt("Id"));
+			movie.setName(rs.getString("Name"));
+			movie.setType(rs.getString("Type"));
+			list.add(movie);
+		}
+
+		return list;
+
+	}
+
+	public static ArrayList<MovieList> searchKeyword(Connection conn, String keyword) throws SQLException {
+		String newkeyword = "";
+		if (keyword != null) {
+			String[] keyword_split = keyword.split(" ");
+			if (keyword_split.length > 0) {
+				for (int i = 0; i < keyword_split.length; i++) {
+					if (i != keyword_split.length - 1) {
+						newkeyword = newkeyword + "%" + keyword_split[i];
+					} else {
+						newkeyword = newkeyword + "%" + keyword_split[i] + "%";
+					}
+
+				}
+				System.out.println(newkeyword);
+			}
+		}
+
+		ArrayList<MovieList> list = new ArrayList<MovieList>();
+
+		String sql = "SELECT M.Id, M.Name, M.Type FROM Movie M, HandOut H WHERE M.Id = H.MovieId AND M.NumCopies>H.NumOut AND M.Name LIKE ?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, newkeyword);
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			MovieList movie = new MovieList();
+			movie.setId(rs.getInt("Id"));
+			movie.setName(rs.getString("Name"));
+			movie.setType(rs.getString("Type"));
+			list.add(movie);
+		}
+
+		return list;
+
 	}
 
 }

@@ -63,15 +63,20 @@
 
 						<div class="medium-12 medium columns">
 							<div class="row">
-
+								<div class="medium-7 columns ">
+									<form method="POST" action="Customer?action=8">
+										<input type="text" name="search_text"
+											placeholder="Enter keyword" />
+									</form>
+								</div>
 								<div class="medium-5 columns ">
 									<ul class="menu" style="background-color: #ffffff">
 										<li><a href="/MovieMoose/Customer?action=7"
-											class="button">Search By Keyword</a></li>
+											class="button">Search</a></li>
 										<li><a href="/MovieMoose/Customer?action=8"
-											class="button">Search By Genre</a></li>
+											class="button">Genre</a></li>
 										<li><a href="/MovieMoose/Customer?action=9"
-											class="button">Search By Actor</a></li>
+											class="button">Actor</a></li>
 									</ul>
 								</div>
 							</div>
@@ -113,6 +118,33 @@
 						<li><h6>&nbsp;</h6></li>
 					</ul>
 					<!--Side Menu End-->
+				</div>
+				<div class="medium-8 columns ">
+
+					<!--Content-->
+					<!--Title-->
+
+					<div class="medium-12 columns"
+						style="border-bottom: thin solid #1F1F1F;">
+						<h3 id="title" style="text-align: center">Genre</h3>
+					</div>
+					<table style="width: 100%">
+						<tr>
+							<th>Movie ID</th>
+							<th>Movie Name</th>
+							<th>Movie Type</th>
+						</tr>
+						<c:forEach items="${genre_list}" var="movie">
+							<tr>
+								<td style="text-align: center">${movie.id}</td>
+								<td style="text-align: center">${movie.name}</td>
+								<td style="text-align: center">${movie.type}</td>
+							</tr>
+						</c:forEach>
+					</table>
+
+
+					<!--Content End-->
 				</div>
 			</div>
 
