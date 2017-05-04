@@ -91,6 +91,7 @@ public class EmployeeServlet extends HttpServlet {
 				errorString = e.getMessage();
 			}
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/employeeView.jsp");
+<<<<<<< HEAD
 			dispatcher.forward(request, response);
 			return;
 		// Send to add customer page
@@ -170,6 +171,8 @@ public class EmployeeServlet extends HttpServlet {
 				errorString = e.getMessage();
 			}
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/employeeView.jsp");
+=======
+>>>>>>> 25edc8ed6914e6f56bf353f05319d36371f4a4bf
 			dispatcher.forward(request, response);
 			return;
 		}

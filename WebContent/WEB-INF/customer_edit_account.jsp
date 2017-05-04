@@ -60,23 +60,23 @@
 						</ul>
 					</div>
 					<div class="top-bar-right">
-
-						<div class="medium-12 medium columns">
-							<div class="row">
-
-								<div class="medium-5 columns ">
-									<ul class="menu" style="background-color: #ffffff">
-										<li><a href="/MovieMoose/Customer?action=7"
-											class="button">Search By Keyword</a></li>
-										<li><a href="/MovieMoose/Customer?action=8"
-											class="button">Search By Genre</a></li>
-										<li><a href="/MovieMoose/Customer?action=9"
-											class="button">Search By Actor</a></li>
-									</ul>
+						<form method="POST" action="doSignUp">
+							<div class="medium-12 medium columns">
+								<div class="row">
+									<div class="medium-7 columns ">
+										<input type="text" name="ssn_text" placeholder="" />
+									</div>
+									<div class="medium-5 columns ">
+										<ul class="menu" style="background-color: #ffffff">
+											<li id="search_btn"><input class="button" type="submit"
+												value="Search" /></li>
+											<li id="avd_search_btn"><input class="button"
+												type="button" value="Register" /></li>
+										</ul>
+									</div>
 								</div>
 							</div>
-						</div>
-
+						</form>
 					</div>
 				</div>
 			</div>
@@ -113,6 +113,44 @@
 						<li><h6>&nbsp;</h6></li>
 					</ul>
 					<!--Side Menu End-->
+				</div>
+				<div class="medium-8 columns ">
+
+					<!--Content-->
+					<!--Title-->
+
+					<div class="medium-12 columns"
+						style="border-bottom: thin solid #1F1F1F;">
+						<h3 id="title" style="text-align: center">Edit Account</h3>
+					</div>
+					<form method="POST" action="Customer?action=6">
+						<div class="medium-8 medium-centered columns"
+							style="margin-top: 15%; margin-bottom: 15%;">
+							<div class="row">
+								<div class="medium-4 columns ">
+									<label style="padding: 9px 0px"><b>Customer ID:</b></label>
+								</div>
+								<div class="medium-8 columns ">
+									<input name="cus_id_txt" type="text"
+										placeholder="Enter the customer ID" />
+								</div>
+								<div class="medium-4 columns ">
+									<label style="padding: 9px 0px"><b>Account Type:</b></label>
+								</div>
+								<div class="medium-8 columns ">
+									<input name="acc_type_txt" type="text"
+										placeholder="Enter the account type" />
+								</div>
+							</div>
+							<div class="top-bar-right">
+								<ul class="menu">
+									<li style="padding-right: 15px" id="register_btn"><input
+										class="button" type="submit" value="Save Changes" /></li>
+								</ul>
+							</div>
+						</div>
+					</form>
+					<!--Content End-->
 				</div>
 			</div>
 
