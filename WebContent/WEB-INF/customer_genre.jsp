@@ -72,11 +72,11 @@
 								<div class="medium-5 columns ">
 									<ul class="menu" style="background-color: #ffffff">
 										<li><a href="/MovieMoose/Customer?action=7"
-											class="button">Search</a></li>
+											class="button">Search By Keyword</a></li>
 										<li><a href="/MovieMoose/Customer?action=8"
-											class="button">Genre</a></li>
+											class="button">Search By Genre</a></li>
 										<li><a href="/MovieMoose/Customer?action=9"
-											class="button">Actor</a></li>
+											class="button">Search By Actor</a></li>
 									</ul>
 								</div>
 							</div>

@@ -200,7 +200,7 @@ public class CustomerServlet extends HttpServlet {
 				}
 				request.setAttribute("actor_list", movies);
 				RequestDispatcher dispatcher = request.getServletContext()
-						.getRequestDispatcher("/WEB-INF/customer_actors.jsp");
+						.getRequestDispatcher("/WEB-INF/custom_actors.jsp");
 				dispatcher.forward(request, response);
 				return;
 			}

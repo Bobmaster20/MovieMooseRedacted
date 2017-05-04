@@ -56,7 +56,7 @@
 							<li style="background-color: #ffffff"><h6>&nbsp;</h6></li>
 							<li style="background-color: #ffffff"><h6>&nbsp;</h6></li>
 							<li style="background-color: #ffffff"><h6>&nbsp;</h6></li>
-							<li><a href="#" class="button">Edit Account</a></li>
+							<li><a href="/MovieMoose/Customer?action=6" class="button">Edit Account</a></li>
 						</ul>
 					</div>
 					<div class="top-bar-right">
@@ -68,8 +68,12 @@
 									</div>
 									<div class="medium-5 columns ">
 										<ul class="menu" style="background-color: #ffffff">
-											<li id="search_btn"><input class="button" type="submit"
-												value="Search Customer" /></li>
+											<li><a href="/MovieMoose/Customer?action=7"
+											class="button">Search By Keyword</a></li>
+										<li><a href="/MovieMoose/Customer?action=8"
+											class="button">Search By Genre</a></li>
+										<li><a href="/MovieMoose/Customer?action=9"
+											class="button">Search By Actor</a></li>
 										</ul>
 									</div>
 								</div>
