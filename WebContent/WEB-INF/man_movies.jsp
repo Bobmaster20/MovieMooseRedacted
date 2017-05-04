@@ -61,11 +61,16 @@
 			<ul class="vertical menu" >
 	            <li><h6>&nbsp;</h6></li>
 				<li id="movies"><a href="/MovieMoose/Manager?action=1" class="link"><b>Movies</b></a></li>
-                <li id="employee"><a href="#" class="link"><b>Employees</b></a></li>
-                <li id="rentals"><a href="#" class="link"><b>Rentals</b></a></li>
-                <li id="best_emp"><a href="#" class="link"><b>Best Employee</b></a></li>
-                <li id="most_active_customer"><a href="#" class="link"><b>Most Active Customer</b></a></li>
-                <li id="most_rented_movies"><a href="#" class="link"><b>Most Rented Movie</b></a></li>	
+				<li id="movies"><a href="/MovieMoose/Manager?action=2" class="link"><b>Add Movie</b></a></li>
+				<li id="movies"><a href="/MovieMoose/Manager?action=4" class="link"><b>Edit Movie</b></a></li>
+				<li id="movies"><a href="/MovieMoose/Manager?action=6" class="link"><b>Delete Movie</b></a></li>
+				<li id="best_emp"><a href="/MovieMoose/Manager?action=8" class="link"><b>Best Employee</b></a></li>
+                <li id="movies"><a href="/MovieMoose/Manager?action=9" class="link"><b>Add Employee</b></a></li>
+				<li id="movies"><a href="/MovieMoose/Manager?action=11" class="link"><b>Edit Employee</b></a></li>
+				<li id="movies"><a href="/MovieMoose/Manager?action=13" class="link"><b>Delete Employee</b></a></li>
+				<li id="movies"><a href="/MovieMoose/Manager?action=15" class="link"><b>Sales Report</b></a></li>
+                <li id="most_rented_movies"><a href="/MovieMoose/Manager?action=15" class="link"><b>Most Rented Movie</b></a></li>	
+                <li id="most_active_customer"><a href="/MovieMoose/Manager?action=15" class="link"><b>Most Active Customer</b></a></li>
 		    </ul>
 		</div>
     </div>
@@ -73,6 +78,8 @@
     	<h6>&nbsp;</h6>
     	<ul class="vertical menu" style="border-left: thin solid #1F1F1F;">
 	            <li><h6>&nbsp;</h6></li>
+                <li><h6>&nbsp;</h6></li>
+                <li><h6>&nbsp;</h6></li>
                 <li><h6>&nbsp;</h6></li>
                 <li><h6>&nbsp;</h6></li>
                 <li><h6>&nbsp;</h6></li>

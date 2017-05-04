@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!doctype html>
 <html>
 <head>
@@ -69,7 +71,6 @@
 				<li id="movies"><a href="/MovieMoose/Manager?action=15" class="link"><b>Sales Report</b></a></li>
                 <li id="most_rented_movies"><a href="/MovieMoose/Manager?action=15" class="link"><b>Most Rented Movie</b></a></li>	
                 <li id="most_active_customer"><a href="/MovieMoose/Manager?action=15" class="link"><b>Most Active Customer</b></a></li>
-                
 		    </ul>
 		</div>
     </div>
@@ -92,7 +93,25 @@
     <div class="medium-8 columns ">
    		<!--Content-->
         <!--Title-->
-        
+        <div class="medium-12 columns" style="border-bottom:thin solid #1F1F1F;" ><h3 id="title" style="text-align:center">Customer Email</h3></div>
+    	<table style="width:100%">
+		<tr>
+			<th>ID</th>
+			<th>First Name</th> 
+			<th>Last Name</th>
+			<th>Rating</th>
+			<th>NumOfOrders</th>
+		</tr>
+		<c:forEach items="${custList}" var="customer" >
+          <tr>
+             <td style="text-align:center">${customer.id}</td>
+             <td style="text-align:center">${customer.firstName}</td>
+             <td style="text-align:center">${customer.lastNname}</td>
+             <td style="text-align:center">${customer.rating}</td>
+             <td style="text-align:center">${customer.numOfOrders}</td>
+          </tr>
+       </c:forEach>
+		</table>
 		
 		<!--Content End-->
     </div>

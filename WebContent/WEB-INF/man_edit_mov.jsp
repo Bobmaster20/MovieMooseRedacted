@@ -92,7 +92,48 @@
     <div class="medium-8 columns ">
    		<!--Content-->
         <!--Title-->
-        
+        <div class="medium-12 columns" style="border-bottom:thin solid #1F1F1F;" ><h3 id="title" style="text-align:center">Edit Movie</h3></div>
+    	<form method="POST" action="Manager?action=5">
+    		<div class="medium-8 medium-centered columns" style="margin-top:15%; margin-bottom:15%;">
+    			<div class="row">
+		           	<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>Name</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="name_txt" type="text" placeholder="Enter the name" />
+    				</div>
+    				<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>Movie Type:</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="type_txt" type="text" placeholder="Enter the type" />
+    				</div>
+    				<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>Rating:</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="rating_txt" type="text" placeholder="Enter the rating" />
+    				</div>
+    				<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>Distr Fee:</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="distr_fee_txt" type="text" placeholder="Enter the distr fee" />
+    				</div>
+    				<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>Num of Copies:</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="num_copies_txt" type="text" placeholder="Enter the number of copies" />
+    				</div>
+  				</div>
+        		<div class="top-bar-right">
+                	<ul class="menu">
+                   		<li style="padding-right:15px" id="register_btn"><input class="button" type="submit" value= "Edit Movie" /></li>
+                	</ul>
+         		</div>
+    		</div>
+    	</form>	
 		
 		<!--Content End-->
     </div>

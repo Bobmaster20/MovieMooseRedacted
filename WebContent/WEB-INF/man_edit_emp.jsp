@@ -92,7 +92,57 @@
     <div class="medium-8 columns ">
    		<!--Content-->
         <!--Title-->
-        
+        <div class="medium-12 columns" style="border-bottom:thin solid #1F1F1F;" ><h3 id="title" style="text-align:center">Edit Employee</h3></div>
+    	<form method="POST" action="Manager?action=12">
+    		<div class="medium-8 medium-centered columns" style="margin-top:15%; margin-bottom:15%;">
+    			<div class="row">
+		           	<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>SSN</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="ssn_txt" type="text" placeholder="Enter the SSN" />
+    				</div>
+    				<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>First Name:</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="first_name_txt" type="text" placeholder="Enter the first name" />
+    				</div>
+    				<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>Last Name:</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="last_name_txt" type="text" placeholder="Enter the last name" />
+    				</div>
+    				<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>Address:</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="address_txt" type="text" placeholder="Enter the address" />
+    				</div>
+    				<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>ZipCode:</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="zipcode_txt" type="text" placeholder="Enter the zipcode" />
+    				</div>
+    				<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>Telephone#:</b></label>
+    				</div>
+    				<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>Hourly Wage:</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="ccn_txt" type="text" placeholder="Enter the hourly wage" />
+    				</div>
+  				</div>
+        		<div class="top-bar-right">
+                	<ul class="menu">
+                   		<li style="padding-right:15px" id="register_btn"><input class="button" type="submit" value= "Edit Employee" /></li>
+                	</ul>
+         		</div>
+    		</div>
+    	</form>	
 		
 		<!--Content End-->
     </div>
