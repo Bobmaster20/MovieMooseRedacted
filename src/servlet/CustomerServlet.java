@@ -189,6 +189,22 @@ public class CustomerServlet extends HttpServlet {
 				return;
 			}
 
+			if (action.equals("9")) {
+				try {
+					String actors = request.getParameter("search_text2");
+					movies = DBUtils.searchActors(conn, actors);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					hasError = true;
+					errorString = e.getMessage();
+				}
+				request.setAttribute("actor_list", movies);
+				RequestDispatcher dispatcher = request.getServletContext()
+						.getRequestDispatcher("/WEB-INF/custom_actors.jsp");
+				dispatcher.forward(request, response);
+				return;
+			}
+
 		}
 
 		// Forward to /WEB-INF/views/homeView.jsp

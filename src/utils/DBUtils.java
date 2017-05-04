@@ -270,27 +270,32 @@ public class DBUtils {
 	public static void editAccount(Connection conn, String id, String type, String ssn) throws SQLException {
 
 		if (type != null) {
-			System.out.println(ssn);
-			System.out.println(type);
-			String sql = "UPDATE Account SET AccType= ?" + "WHERE Customer = ?";
+			if (!type.equals("")) {
+				System.out.println(ssn);
+				System.out.println(type);
+				String sql = "UPDATE Account SET AccType= ?" + "WHERE Customer = ?";
 
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, type);
-			pstm.setString(2, ssn);
-			pstm.executeUpdate();
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				pstm = conn.prepareStatement(sql);
+				pstm.setString(1, type);
+				pstm.setString(2, ssn);
+				pstm.executeUpdate();
+			}
 		}
 
 		if (id != null) {
-			System.out.println(ssn);
-			System.out.println(id);
-			String sql = "UPDATE Person SET SSN = ?" + "WHERE SSN = ?";
+			if (id.equals("")) {
+				System.out.println(ssn);
+				System.out.println(id);
+				String sql = "UPDATE Person SET SSN = ?" + "WHERE SSN = ?";
 
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, id);
-			pstm.setString(2, ssn);
-			pstm.executeUpdate();
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				pstm = conn.prepareStatement(sql);
+				pstm.setString(1, id);
+				pstm.setString(2, ssn);
+				pstm.executeUpdate();
+			}
+
 		}
 
 	}
@@ -338,6 +343,44 @@ public class DBUtils {
 		ArrayList<MovieList> list = new ArrayList<MovieList>();
 
 		String sql = "SELECT M.Id, M.Name, M.Type FROM Movie M, HandOut H WHERE M.Id = H.MovieId AND M.NumCopies>H.NumOut AND M.Name LIKE ?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, newkeyword);
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			MovieList movie = new MovieList();
+			movie.setId(rs.getInt("Id"));
+			movie.setName(rs.getString("Name"));
+			movie.setType(rs.getString("Type"));
+			list.add(movie);
+		}
+
+		return list;
+
+	}
+
+	public static ArrayList<MovieList> searchActors(Connection conn, String actors) throws SQLException {
+		String newkeyword = "";
+		if (actors != null) {
+			String[] keyword_split = actors.split(",");
+			if (keyword_split.length > 0) {
+				for (int i = 0; i < keyword_split.length; i++) {
+					if (i != keyword_split.length - 1) {
+						newkeyword = newkeyword + keyword_split[i] + " OR ";
+					} else {
+						newkeyword = newkeyword + keyword_split[i];
+					}
+
+				}
+				System.out.println(newkeyword);
+			}
+		}
+
+		ArrayList<MovieList> list = new ArrayList<MovieList>();
+
+		String sql = "SELECT M.Id, M.Name, M.Type FROM Movie M, HandOut H, AppearedIn I, ACTOR A WHERE M.Id = H.MovieID AND M.NumCopies>H.NumOut AND A.NAME = ? "
+				+ "AND I.ActorId = A.Id AND I.MovieId = M.Id ";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, newkeyword);
