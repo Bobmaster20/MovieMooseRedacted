@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Customer</title>
+<title>Employee</title>
 <link href="css/app.css" rel="stylesheet" type="text/css">
 <link href="css/foundation.css" rel="stylesheet" type="text/css">
 <link href="css/foundation.min.css" rel="stylesheet" type="text/css">
+<link href="js/Employee.js" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -68,9 +69,7 @@
 									<div class="medium-5 columns ">
 										<ul class="menu" style="background-color: #ffffff">
 											<li id="search_btn"><input class="button" type="submit"
-												value="Search" /></li>
-											<li id="avd_search_btn"><input class="button"
-												type="button" value="Register" /></li>
+												value="Search Customer" /></li>
 										</ul>
 									</div>
 								</div>
@@ -87,7 +86,7 @@
 			style="background: #FFFFFF; box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);">
 			<!--Side menu-->
 			<div class="row">
-				<div class="medium-2 columns ">
+				<div class="medium-3 columns ">
 					<div class="top-bar-left">
 						<ul class="vertical menu">
 							<li><h6>&nbsp;</h6></li>
@@ -104,26 +103,35 @@
 					<ul class="vertical menu" style="border-left: thin solid #1F1F1F;">
 						<li><h6>&nbsp;</h6></li>
 						<li><h6>&nbsp;</h6></li>
-						<li><h6>&nbsp;</h6></li>
-						<li><h6>&nbsp;</h6></li>
-						<li><h6>&nbsp;</h6></li>
-						<li><h6>&nbsp;</h6></li>
-						<li><h6>&nbsp;</h6></li>
-						<li><h6>&nbsp;</h6></li>
 					</ul>
 					<!--Side Menu End-->
 				</div>
+				<div class="medium-8 columns ">
+
+					<!--Content-->
+					<!--Title-->
+
+					<div class="medium-12 columns"
+						style="border-bottom: thin solid #1F1F1F;">
+						<h3 id="title" style="text-align: center">Wishlist</h3>
+					</div>
+					<table style="width: 100%">
+						<tr>
+							<th>Movie Name</th>
+						</tr>
+						<c:forEach items="${movieQueue}" var="name">
+							<tr>
+								<td style="text-align: center">${name}</td>
+							</tr>
+						</c:forEach>
+					</table>
+
+
+					<!--Content End-->
+				</div>
 			</div>
-
-
+			<div></div>
 		</div>
-	</div>
-	<!--Main Body End-->
-
-
-
-
-
-
+		<!--Main Body End-->
 </body>
 </html>
