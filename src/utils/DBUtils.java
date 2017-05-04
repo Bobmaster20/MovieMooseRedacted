@@ -10,9 +10,11 @@ import java.util.Date;
 import java.sql.Timestamp;
 
 import beans.Customer;
+import beans.CustomerList;
 import beans.Employee;
 import beans.MailingBean;
 import beans.MovieList;
+import beans.MovieRental;
 import beans.Order;
 import beans.Person;
 
@@ -542,6 +544,221 @@ public class DBUtils {
 		}
 
 	}
+	// --
+
+	public static void addMovie(Connection conn, int id, String name, String type, int rating, double distrfee,
+			int numcopies) throws SQLException {
+		String sql = "INSERT INTO Movie VALUES (?, ?, ?, ?, ?, ?)";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.setString(2, name);
+		pstm.setString(3, type);
+		pstm.setInt(4, rating);
+		pstm.setDouble(5, distrfee);
+		pstm.setInt(6, numcopies);
+		int success = pstm.executeUpdate();
+
+	}
+
+	public static void editMovie(Connection conn, int id, String name, String type, int rating, double distrfee,
+			int numcopies) throws SQLException {
+		if (id != 0) {
+			return;
+		}
+		if (name.compareTo("") != 0) {
+			String sql = "UPDATE Movie SET Name = ? WHERE Id = ?";
+
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, name);
+			pstm.setInt(2, id);
+			int success = pstm.executeUpdate();
+			if (success == 0) {
+				return;
+			}
+		}
+
+		if (type.compareTo("") != 0) {
+			String sql = "UPDATE Movie SET Type = ? WHERE Id = ?";
+
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, type);
+			pstm.setInt(2, id);
+			int success = pstm.executeUpdate();
+			if (success == 0) {
+				return;
+			}
+		}
+
+		if (rating != 0) {
+			String sql = "UPDATE Movie SET Rating = ? WHERE Id = ?";
+
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, rating);
+			pstm.setInt(2, id);
+			int success = pstm.executeUpdate();
+			if (success == 0) {
+				return;
+			}
+		}
+
+		if (distrfee != 0.0) {
+			String sql = "UPDATE Movie SET DistrFee = ? WHERE Id = ?";
+
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setDouble(1, distrfee);
+			pstm.setInt(2, id);
+			int success = pstm.executeUpdate();
+			if (success == 0) {
+				return;
+			}
+		}
+
+		if (numcopies != 0) {
+			String sql = "UPDATE Movie SET NumCopies = ? WHERE Id = ?";
+
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, numcopies);
+			pstm.setInt(2, id);
+			int success = pstm.executeUpdate();
+			if (success == 0) {
+				return;
+			}
+		}
+
+	}
+
+	public static void deleteMovie(Connection conn, int id) throws SQLException {
+		if (id != 0) {
+			return;
+		}
+
+		String sql = "Delete From Movie Where Id = ?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		int success = pstm.executeUpdate();
+		if (success == 0) {
+			return;
+		}
+
+	}
+
+	public static ArrayList<MovieRental> getListMovieRental(Connection conn, String name, String type, String cusname)
+			throws SQLException {
+
+		ArrayList<MovieRental> list = new ArrayList<MovieRental>();
+
+		if (name != null) {
+			String sql = "SELECT R.OrderId, M.Id, M.Type, N.CustId FROM Movie M, Rental R, Name N WHERE N.AcctId = R.AccountId AND M.Id = R.MovieId AND M.Name = ? ";
+
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, name);
+			ResultSet rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				MovieRental rental = new MovieRental();
+				rental.setCustid(rs.getInt("CustId"));
+				rental.setMovieid(rs.getInt("Id"));
+				rental.setOrderid(rs.getInt("OrderId"));
+				rental.setType(rs.getString("Type"));
+				list.add(rental);
+			}
+		}
+
+		else if (type != null) {
+			String sql = "SELECT R.OrderId, M.Id, M.Type, N.CustId FROM Movie M, Rental R, Name N WHERE N.AcctId = R.AccountId AND M.Id = R.MovieId AND M.Type = ? ";
+
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, type);
+			ResultSet rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				MovieRental rental = new MovieRental();
+				rental.setCustid(rs.getInt("CustId"));
+				rental.setMovieid(rs.getInt("Id"));
+				rental.setOrderid(rs.getInt("OrderId"));
+				rental.setType(rs.getString("Type"));
+				list.add(rental);
+			}
+		}
+
+		else if (cusname != null) {
+			String sql = "SELECT R.OrderId, M.Id, M.Type, N.CustId FROM Movie M, Rental R, Name N WHERE N.AcctId = R.AccountId AND M.Id = R.MovieId AND N.LastName = ? ";
+
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, cusname);
+			ResultSet rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				MovieRental rental = new MovieRental();
+				rental.setCustid(rs.getInt("CustId"));
+				rental.setMovieid(rs.getInt("Id"));
+				rental.setOrderid(rs.getInt("OrderId"));
+				rental.setType(rs.getString("Type"));
+				list.add(rental);
+			}
+		}
+
+		return list;
+
+	}
+
+	public static int cusrepMostTransactions(Connection conn) throws SQLException {
+
+		String sql = "SELECT S.CustRepId FROM CountTrans C WHERE C.NumTrans >= (SELECT MAX(D.NumTrans) FROM CountTrans D)";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		if (rs.next()) {
+			return rs.getInt("CustRepId");
+		}
+		return 0;
+
+	}
+
+	public static ArrayList<CustomerList> mostActiveCustomers(Connection conn) throws SQLException {
+		ArrayList<CustomerList> list = new ArrayList<CustomerList>();
+
+		String sql = "SELECT N.CustId, N.FirstName, N.LastName, N.Rating, C.NumOrders FROM CountOrders C, Name N WHERE N.CustId = C.CustId AND C.NumOrders >= (SELECT MAX(D.NumOrders)  FROM CountOrders D)? ";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			CustomerList cus = new CustomerList();
+			cus.setCustid(rs.getInt("CustId"));
+			cus.setFirstname(rs.getString("FirstName"));
+			cus.setLastname(rs.getString("LastName"));
+			cus.setRating(rs.getInt("Rating"));
+			cus.setNumOrders(rs.getInt("NumOrders"));
+			list.add(cus);
+		}
+		return list;
+
+	}
+
+	public static ArrayList<MovieList> mostActiveRentedMovies(Connection conn) throws SQLException {
+		ArrayList<MovieList> list = new ArrayList<MovieList>();
+
+		String sql = "SELECT M.ID, M.Name, M.RATING, O.NumOrders FROM MovieOrder O, Movie M WHERE O.MovieId = M.ID AND O.NumOrders >= (SELECT MAX(R.NumOrders) FROM MovieOrder R) ";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			MovieList cus = new MovieList();
+			cus.setId(rs.getInt("Id"));
+			cus.setName(rs.getString("Name"));
+			cus.setRating(rs.getInt("RATING"));
+			cus.setNumOrders(rs.getInt("NumOrders"));
+
+			list.add(cus);
+		}
+		return list;
+
+	}
 
 	public static void editAccount(Connection conn, String id, String type, String ssn) throws SQLException {
 
@@ -673,8 +890,8 @@ public class DBUtils {
 		return list;
 
 	}
-	
-	public static List<MovieList> findMovies(Connection conn) throws SQLException{
+
+	public static List<MovieList> findMovies(Connection conn) throws SQLException {
 		String sql = "SELECT Id, Name, Type, Rating FROM Movie";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -695,7 +912,7 @@ public class DBUtils {
 			list.add(movie);
 		}
 		return list;
-		
+
 	}
 
 }
