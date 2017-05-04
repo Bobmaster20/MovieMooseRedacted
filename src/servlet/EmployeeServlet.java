@@ -54,11 +54,13 @@ public class EmployeeServlet extends HttpServlet {
 
 			dispatcher.forward(request, response);
 			return;
+		// Send to place order
 		}else if (action.equals("1")){
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/emp_place_order.jsp");
 
 			dispatcher.forward(request, response);
 			return;
+		// Queries the mailing list
 		}else if (action.equals("2")){
 			// Valid SSN I guess.
 			Connection conn = MyUtils.getStoredConnection(request);
@@ -74,6 +76,7 @@ public class EmployeeServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/emp_cust_email.jsp");
 			dispatcher.forward(request, response);
 			return;
+		// Inserts an Order and Rental
 		}else if(action.equals("3")){
 			// Valid SSN I guess.
 			Connection conn = MyUtils.getStoredConnection(request);
@@ -87,7 +90,86 @@ public class EmployeeServlet extends HttpServlet {
 				hasError = true;
 				errorString = e.getMessage();
 			}
-			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/EmployeeView.jsp");
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/employeeView.jsp");
+			dispatcher.forward(request, response);
+			return;
+		// Send to add customer page
+		}else if(action.equals("4")){
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/emp_add_cust.jsp");
+			dispatcher.forward(request, response);
+			return;
+		// Insert Customer
+		}else if(action.equals("5")){
+			// Valid SSN I guess.
+			Connection conn = MyUtils.getStoredConnection(request);
+			try {
+				String SSN = request.getParameter("ssn_txt");
+				String lastName = request.getParameter("last_name_txt");
+				String firstName = request.getParameter("first_name_txt");
+				String address = request.getParameter("address_txt");
+				int zipCode = Integer.parseInt(request.getParameter("zipcode_txt"));
+				String telephone = request.getParameter("telephone_txt");
+				String email = request.getParameter("email_txt");
+				long creditCard = Long.parseLong(request.getParameter("ccn_txt"));
+				DBUtils.addCustomer(conn, SSN, lastName, firstName, address, zipCode, telephone, email, creditCard);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				hasError = true;
+				errorString = e.getMessage();
+			}
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/employeeView.jsp");
+			dispatcher.forward(request, response);
+			return;
+		// Send to edit customer page
+		}else if(action.equals("6")){
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/emp_edit_cust.jsp");
+			dispatcher.forward(request, response);
+			return;
+		// Update customer
+		}else if(action.equals("7")){
+			// Valid SSN I guess.
+			Connection conn = MyUtils.getStoredConnection(request);
+			try {
+				String SSN = request.getParameter("ssn_txt");
+				String lastName = request.getParameter("last_name_txt");
+				String firstName = request.getParameter("first_name_txt");
+				String address = request.getParameter("address_txt");
+				int zipCode = 0;
+				if(request.getParameter("zipcode_txt").compareTo("") != 0){
+					zipCode = Integer.parseInt(request.getParameter("zipcode_txt"));
+				}
+				String telephone = request.getParameter("telephone_txt");
+				String email = request.getParameter("email_txt");
+				long creditCard = 0;
+				if(request.getParameter("ccn_txt").compareTo("") != 0){
+					creditCard = Long.parseLong(request.getParameter("ccn_txt"));
+				}
+				DBUtils.editCustomer(conn, SSN, lastName, firstName, address, zipCode, telephone, email, creditCard);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				hasError = true;
+				errorString = e.getMessage();
+			}
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/employeeView.jsp");
+			dispatcher.forward(request, response);
+			return;
+		// Send to delete customer
+		}else if(action.equals("8")){
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/emp_delete_cust.jsp");
+			dispatcher.forward(request, response);
+			return;
+		// Delete user
+		}else if(action.equals("9")){
+			Connection conn = MyUtils.getStoredConnection(request);
+			try {
+				String SSN = request.getParameter("ssn_txt");
+				DBUtils.deleteCustomer(conn, SSN);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				hasError = true;
+				errorString = e.getMessage();
+			}
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/employeeView.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}

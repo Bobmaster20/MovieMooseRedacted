@@ -252,15 +252,140 @@ public class DBUtils {
 	}
 	
 	public static void addCustomer(Connection conn, String SSN, String lastName, String firstName, String address, int zipCode, String telephone, String email, long creditCard) throws SQLException {
-		String sql = "INSERT INTO Person VALUES (?, ?, ?, '700 Health Science Drive', 11790, '631-413-7777')";
+		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
 		
-		sql ="INSERT INTO Customer VALUES ('777-77-7777', 'hiden@aol.com', 1, 373411111111111)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, SSN);
+		pstm.setString(2, lastName);
+		pstm.setString(3, firstName);
+		pstm.setString(4, address);
+		pstm.setInt(5, zipCode);
+		pstm.setString(6, telephone);
+	    int success = pstm.executeUpdate();
+	    if(success != 0){
+	    	sql ="INSERT INTO Customer VALUES (?, ?, 1, ?)";
+	    	pstm = conn.prepareStatement(sql);
+	    	pstm.setString(1, SSN);
+			pstm.setString(2, email);
+			pstm.setLong(3, creditCard);
+			success = pstm.executeUpdate();
+	    }
+		
 	}
 	
-	public static void editCustomer(){
+	public static void editCustomer(Connection conn, String SSN, String lastName, String firstName, String address, int zipCode, String telephone, String email, long creditCard) throws SQLException {
+		if (SSN.compareTo("") == 0){
+			return;
+		}
+		if(lastName.compareTo("") != 0){
+			String sql = "UPDATE Person SET lastName = ? WHERE SSN = ?";
+			
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, lastName);
+			pstm.setString(2, SSN);
+		    int success = pstm.executeUpdate();
+		    if(success == 0){
+		    	return;
+		    }
+		}
+		
+		if(firstName.compareTo("") != 0){
+			String sql = "UPDATE Person SET firstName = ? WHERE SSN = ?";
+			
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, firstName);
+			pstm.setString(2, SSN);
+		    int success = pstm.executeUpdate();
+		    if(success == 0){
+		    	return;
+		    }
+		}
+		
+		if(address.compareTo("") != 0){
+			String sql = "UPDATE Person SET address = ? WHERE SSN = ?";
+			
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, address);
+			pstm.setString(2, SSN);
+		    int success = pstm.executeUpdate();
+		    if(success == 0){
+		    	return;
+		    }
+		}
+		
+		if(zipCode != 0){
+			String sql = "UPDATE Person SET zipCode = ? WHERE SSN = ?";
+			
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, zipCode);
+			pstm.setString(2, SSN);
+		    int success = pstm.executeUpdate();
+		    if(success == 0){
+		    	return;
+		    }
+		}
+		
+		if(telephone.compareTo("") != 0){
+			String sql = "UPDATE Person SET telephone = ? WHERE SSN = ?";
+			
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, telephone);
+			pstm.setString(2, SSN);
+		    int success = pstm.executeUpdate();
+		    if(success == 0){
+		    	return;
+		    }
+		}
+		
+		if(email.compareTo("") != 0){
+			String sql = "UPDATE Customer SET email = ? WHERE ID = ?";
+			
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, email);
+			pstm.setString(2, SSN);
+		    int success = pstm.executeUpdate();
+		    if(success == 0){
+		    	return;
+		    }
+		}
+		
+		if(creditCard != 0){
+			String sql = "UPDATE Customer SET creditCard = ? WHERE ID = ?";
+			
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setLong(1, creditCard);
+			pstm.setString(2, SSN);
+		    int success = pstm.executeUpdate();
+		    if(success == 0){
+		    	return;
+		    }
+		}
+		
 		
 	}
-	public static void deleteCustomer(){
+	public static void deleteCustomer(Connection conn, String SSN) throws SQLException {
+		if (SSN.compareTo("") == 0){
+			return;
+		}
+		
+		String sql = "Delete From Customer Where ID = ?";
+			
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, SSN);
+		int success = pstm.executeUpdate();
+		if(success == 0){
+			return;
+		}
+		
+		sql = "Delete From Person Where SSN = ?";
+		
+		pstm = conn.prepareStatement(sql);
+		pstm.setString(1, SSN);
+		success = pstm.executeUpdate();
+		if(success == 0){
+			return;
+		}
+		
 		
 	}
 
