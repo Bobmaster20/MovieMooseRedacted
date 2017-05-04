@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -64,6 +63,12 @@
 
 						<div class="medium-12 medium columns">
 							<div class="row">
+								<div class="medium-7 columns ">
+									<form method="POST" action="Customer?action=9">
+										<input type="text" name="search_text2"
+											placeholder="Enter keyword" />
+									</form>
+								</div>
 								<div class="medium-5 columns ">
 									<ul class="menu" style="background-color: #ffffff">
 										<li><a href="/MovieMoose/Customer?action=7"
@@ -121,35 +126,24 @@
 
 					<div class="medium-12 columns"
 						style="border-bottom: thin solid #1F1F1F;">
-						<h3 id="title" style="text-align: center">Edit Account</h3>
+						<h3 id="title" style="text-align: center">Actors</h3>
 					</div>
-					<form method="POST" action="Customer?action=6">
-						<div class="medium-8 medium-centered columns"
-							style="margin-top: 15%; margin-bottom: 15%;">
-							<div class="row">
-								<div class="medium-4 columns ">
-									<label style="padding: 9px 0px"><b>Customer ID:</b></label>
-								</div>
-								<div class="medium-8 columns ">
-									<input name="cus_id_txt" type="text"
-										placeholder="Enter the customer ID" />
-								</div>
-								<div class="medium-4 columns ">
-									<label style="padding: 9px 0px"><b>Account Type:</b></label>
-								</div>
-								<div class="medium-8 columns ">
-									<input name="acc_type_txt" type="text"
-										placeholder="Enter the account type" />
-								</div>
-							</div>
-							<div class="top-bar-right">
-								<ul class="menu">
-									<li style="padding-right: 15px" id="register_btn"><input
-										class="button" type="submit" value="Save Changes" /></li>
-								</ul>
-							</div>
-						</div>
-					</form>
+					<table style="width: 100%">
+						<tr>
+							<th>Movie ID</th>
+							<th>Movie Name</th>
+							<th>Movie Type</th>
+						</tr>
+						<c:forEach items="${actor_list}" var="movie">
+							<tr>
+								<td style="text-align: center">${movie.id}</td>
+								<td style="text-align: center">${movie.name}</td>
+								<td style="text-align: center">${movie.type}</td>
+							</tr>
+						</c:forEach>
+					</table>
+
+
 					<!--Content End-->
 				</div>
 			</div>
@@ -166,4 +160,3 @@
 
 </body>
 </html>
-
