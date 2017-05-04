@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
- 
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.Employee;
+import beans.MailingBean;
+import beans.MovieList;
 import beans.Person;
 import utils.DBUtils;
 import utils.MyUtils;
@@ -58,7 +61,21 @@ public class ManagerServlet extends HttpServlet {
 
 			dispatcher.forward(request, response);
 			return;
-		// Send to place order
+		// List of movies
+		}else if(action.compareTo("1") == 0){
+			Connection conn = MyUtils.getStoredConnection(request);
+			List<MovieList> list = null;
+			try {
+				list = DBUtils.findMovies(conn);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				hasError = true;
+				errorString = e.getMessage();
+			}
+			request.setAttribute("movieList", list);
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/man_movies.jsp");
+			dispatcher.forward(request, response);
+			return;
 		}
        
        // Forward to /WEB-INF/views/homeView.jsp

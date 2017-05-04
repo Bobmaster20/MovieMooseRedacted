@@ -521,5 +521,29 @@ public class DBUtils {
 		return list;
 
 	}
+	
+	public static List<MovieList> findMovies(Connection conn) throws SQLException{
+		String sql = "SELECT Id, Name, Type, Rating FROM Movie";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		ResultSet rs = pstm.executeQuery();
+		List<MovieList> list = new ArrayList<MovieList>();
+		System.out.println(rs);
+		while (rs.next()) {
+			int id = rs.getInt("Id");
+			String name = rs.getString("Name");
+			String type = rs.getString("Type");
+			int rating = rs.getInt("Rating");
+			MovieList movie = new MovieList();
+			movie.setId(id);
+			movie.setName(name);
+			movie.setType(type);
+			movie.setRating(rating);
+			list.add(movie);
+		}
+		return list;
+		
+	}
 
 }

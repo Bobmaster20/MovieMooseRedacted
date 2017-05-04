@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!doctype html>
 <html>
 <head>
@@ -84,7 +86,23 @@
     <div class="medium-8 columns ">
    		<!--Content-->
         <!--Title-->
-        
+        <div class="medium-12 columns" style="border-bottom:thin solid #1F1F1F;" ><h3 id="title" style="text-align:center">Customer Email</h3></div>
+    	<table style="width:100%">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Type</th> 
+			<th>Rating</th>
+		</tr>
+		<c:forEach items="${movieList}" var="movie" >
+          <tr>
+             <td style="text-align:center">${movie.id}</td>
+             <td style="text-align:center">${movie.name}</td>
+             <td style="text-align:center">${movie.type}</td>
+             <td style="text-align:center">${movie.rating}</td>
+          </tr>
+       </c:forEach>
+		</table>
 		
 		<!--Content End-->
     </div>

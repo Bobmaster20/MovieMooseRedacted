@@ -63,7 +63,6 @@ public class EmployeeServlet extends HttpServlet {
 			return;
 		// Queries the mailing list
 		}else if (action.equals("2")){
-			// Valid SSN I guess.
 			Connection conn = MyUtils.getStoredConnection(request);
 			List<MailingBean> list = null;
 			try {
