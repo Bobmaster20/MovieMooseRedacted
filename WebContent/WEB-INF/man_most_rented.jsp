@@ -69,8 +69,8 @@
 				<li id="movies"><a href="/MovieMoose/Manager?action=11" class="link"><b>Edit Employee</b></a></li>
 				<li id="movies"><a href="/MovieMoose/Manager?action=13" class="link"><b>Delete Employee</b></a></li>
 				<li id="movies"><a href="/MovieMoose/Manager?action=15" class="link"><b>Sales Report</b></a></li>
-                <li id="most_rented_movies"><a href="/MovieMoose/Manager?action=15" class="link"><b>Most Rented Movie</b></a></li>	
-                <li id="most_active_customer"><a href="/MovieMoose/Manager?action=15" class="link"><b>Most Active Customer</b></a></li>
+                <li id="most_rented_movies"><a href="/MovieMoose/Manager?action=16" class="link"><b>Most Rented Movie</b></a></li>	
+                <li id="most_active_customer"><a href="/MovieMoose/Manager?action=17" class="link"><b>Most Active Customer</b></a></li>
 		    </ul>
 		</div>
     </div>
@@ -99,14 +99,14 @@
 			<th>ID</th>
 			<th>Name</th> 
 			<th>Rating</th>
-			<th>NumOfCopies</th>
+			<th>NumOrders</th>
 		</tr>
 		<c:forEach items="${movieList}" var="movie" >
           <tr>
              <td style="text-align:center">${movie.id}</td>
              <td style="text-align:center">${movie.name}</td>
              <td style="text-align:center">${movie.rating}</td>
-             <td style="text-align:center">${movie.numOfCopies}</td>
+             <td style="text-align:center">${movie.numOrders}</td>
           </tr>
        </c:forEach>
 		</table>

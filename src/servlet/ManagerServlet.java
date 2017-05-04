@@ -1,12 +1,12 @@
 package servlet;
 
-
 import java.io.IOException;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.CustomerList;
 import beans.Employee;
 import beans.MailingBean;
 import beans.MovieList;
@@ -24,18 +25,18 @@ import beans.Person;
 import utils.DBUtils;
 import utils.MyUtils;
 
-@WebServlet(urlPatterns = { "/Manager"})
+@WebServlet(urlPatterns = { "/Manager" })
 public class ManagerServlet extends HttpServlet {
-   private static final long serialVersionUID = 1L;
- 
-   public ManagerServlet() {
-       super();
-   }
- 
-   @Override
-   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-           throws ServletException, IOException {
-	   String action = request.getParameter("action");
+	private static final long serialVersionUID = 1L;
+
+	public ManagerServlet() {
+		super();
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getParameter("action");
 		Employee employee = MyUtils.getEmployee(request.getSession());
 
 		System.out.println(action);
@@ -47,23 +48,23 @@ public class ManagerServlet extends HttpServlet {
 		person = MyUtils.getLoginedUser(request.getSession());
 		System.out.println(person.getFirstName());
 		System.out.println(person.getLastName());
-		
+
 		// Store info in request attribute, before forward to views
 		request.setAttribute("errorString", errorString);
 		request.setAttribute("person", person);
 		request.setAttribute("action", action);
-       
-    // Store info in request attribute, before forward to views
-       request.setAttribute("errorString", errorString);
-       request.setAttribute("person", person);
-       
-       if (action == null){
+
+		// Store info in request attribute, before forward to views
+		request.setAttribute("errorString", errorString);
+		request.setAttribute("person", person);
+
+		if (action == null) {
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/managerView.jsp");
 
 			dispatcher.forward(request, response);
 			return;
-		// List of movies
-		}else if(action.compareTo("1") == 0){
+			// List of movies
+		} else if (action.compareTo("1") == 0) {
 			Connection conn = MyUtils.getStoredConnection(request);
 			List<MovieList> list = null;
 			try {
@@ -77,12 +78,12 @@ public class ManagerServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/man_movies.jsp");
 			dispatcher.forward(request, response);
 			return;
-		}else if(action.compareTo("2") == 0){
+		} else if (action.compareTo("2") == 0) {
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/man_add_mov.jsp");
 
 			dispatcher.forward(request, response);
 			return;
-		}else if(action.compareTo("3") == 0){
+		} else if (action.compareTo("3") == 0) {
 			Connection conn = MyUtils.getStoredConnection(request);
 			try {
 				int id = Integer.parseInt(request.getParameter("id_txt"));
@@ -235,9 +236,64 @@ public class ManagerServlet extends HttpServlet {
 				errorString = e.getMessage();
 			}
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/managerView.jsp");
+
 			dispatcher.forward(request, response);
 			return;
+		} else if (action.compareTo("8") == 0) {
+			int id = 0;
+			Connection conn = MyUtils.getStoredConnection(request);
+			try {
+				id = DBUtils.cusrepMostTransactions(conn);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				hasError = true;
+				errorString = e.getMessage();
+			}
+			request.setAttribute("empName", id);
+			RequestDispatcher dispatcher = request.getServletContext()
+					.getRequestDispatcher("/WEB-INF/man_best_emp.jsp");
+			dispatcher.forward(request, response);
+			return;
+
+		} else if (action.compareTo("16") == 0) {
+			ArrayList<MovieList> movies = null;
+			Connection conn = MyUtils.getStoredConnection(request);
+			try {
+				movies = DBUtils.mostActiveRentedMovies(conn);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				hasError = true;
+				errorString = e.getMessage();
+			}
+			request.setAttribute("movieList", movies);
+			RequestDispatcher dispatcher = request.getServletContext()
+					.getRequestDispatcher("/WEB-INF/man_most_rented.jsp");
+			dispatcher.forward(request, response);
+			return;
+
 		}
+
+		else if (action.compareTo("17") == 0) {
+			ArrayList<CustomerList> customer = null;
+			Connection conn = MyUtils.getStoredConnection(request);
+			try {
+				customer = DBUtils.mostActiveCustomers(conn);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				hasError = true;
+				errorString = e.getMessage();
+			}
+			request.setAttribute("custList", customer);
+			RequestDispatcher dispatcher = request.getServletContext()
+					.getRequestDispatcher("/WEB-INF/man_most_active.jsp");
+			dispatcher.forward(request, response);
+			return;
+
+		}
+
        
        // Forward to /WEB-INF/views/homeView.jsp
        // (Users can not access directly into JSP pages placed in WEB-INF)
@@ -246,10 +302,14 @@ public class ManagerServlet extends HttpServlet {
        dispatcher.forward(request, response);
    }
  
-   @Override
-   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-           throws ServletException, IOException {
-       doGet(request, response);
-   }
- 
+   
+
+		
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
 }
