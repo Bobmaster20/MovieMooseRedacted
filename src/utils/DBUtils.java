@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
+import java.sql.Timestamp;
 
 import beans.Customer;
 import beans.Employee;
@@ -84,7 +86,7 @@ public class DBUtils {
 
 		ArrayList<String> movieNames = new ArrayList<String>();
 
-		String sql = "SELECT M.Name FROM Name N, Movie M, Rental R, Orders O WHERE N.AcctId = R.AccountId AND R.OrderId = O.Id AND M.Id = R.MovieId AND O.ReturnDate = NULL AND N.CustId = ?";
+		String sql = "SELECT M.Name FROM Name N, Movie M, Rental R, Orders O WHERE N.AcctId = R.AccountId AND R.OrderId = O.Id AND M.Id = R.MovieId AND O.ReturnDate IS NULL AND N.CustId = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, SSN);
@@ -212,6 +214,54 @@ public class DBUtils {
 
 		return list;
 
+	}
+	public static void placeOrder(Connection conn, int movieID, int accountID, int employeeID) throws SQLException {
+		String sql = "SELECT Id from orders  ORDER BY id DESC LIMIT 1";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+	      
+	    ResultSet rs = pstm.executeQuery();
+	    int orderID = 0;
+	    if(rs.next()){
+	    	orderID = rs.getInt("id");
+	    	orderID++;
+	    }
+	    
+	    sql = "INSERT INTO Orders (Id, DateTime, ReturnDate) VALUES (?, ?,NULL)";
+	    
+	    pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, orderID);
+		Date today = new Date();
+		pstm.setTimestamp(2, new Timestamp(today.getTime()));
+		System.out.println(new Timestamp(today.getTime()));
+		int success = pstm.executeUpdate();
+		
+		if(success != 0){
+			sql = "INSERT INTO Rental (AccountId, CustRepId, OrderId, MovieId) VALUES (?, ?, ?, ?)";
+		    
+		    pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, accountID);
+			pstm.setInt(2, employeeID);
+			pstm.setInt(3, orderID);
+			pstm.setInt(4, movieID);
+			success = pstm.executeUpdate();
+			if(success != 0){
+				
+			}
+	    }
+	}
+	
+	public static void addCustomer(Connection conn, String SSN, String lastName, String firstName, String address, int zipCode, String telephone, String email, long creditCard) throws SQLException {
+		String sql = "INSERT INTO Person VALUES (?, ?, ?, '700 Health Science Drive', 11790, '631-413-7777')";
+		
+		sql ="INSERT INTO Customer VALUES ('777-77-7777', 'hiden@aol.com', 1, 373411111111111)";
+	}
+	
+	public static void editCustomer(){
+		
+	}
+	public static void deleteCustomer(){
+		
 	}
 
 }
