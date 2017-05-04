@@ -706,7 +706,7 @@ public class DBUtils {
 
 	public static int cusrepMostTransactions(Connection conn) throws SQLException {
 
-		String sql = "SELECT S.CustRepId FROM CountTrans C WHERE C.NumTrans >= (SELECT MAX(D.NumTrans) FROM CountTrans D)";
+		String sql = "SELECT C.CustRepId FROM CountTrans C WHERE C.NumTrans >= (SELECT MAX(D.NumTrans) FROM CountTrans D)";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm = conn.prepareStatement(sql);
@@ -721,7 +721,7 @@ public class DBUtils {
 	public static ArrayList<CustomerList> mostActiveCustomers(Connection conn) throws SQLException {
 		ArrayList<CustomerList> list = new ArrayList<CustomerList>();
 
-		String sql = "SELECT N.CustId, N.FirstName, N.LastName, N.Rating, C.NumOrders FROM CountOrders C, Name N WHERE N.CustId = C.CustId AND C.NumOrders >= (SELECT MAX(D.NumOrders)  FROM CountOrders D)? ";
+		String sql = "SELECT N.CustId, N.FirstName, N.LastName, N.Rating, C.NumOrders FROM CountOrders C, Name N WHERE N.CustId = C.CustId AND C.NumOrders >= (SELECT MAX(D.NumOrders)  FROM CountOrders D) ";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
