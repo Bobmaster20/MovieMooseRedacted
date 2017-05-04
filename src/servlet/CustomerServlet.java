@@ -3,6 +3,8 @@ package servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Customer;
+import beans.MailingBean;
+import beans.MovieList;
+import beans.Order;
 import beans.Person;
 import utils.DBUtils;
 import utils.MyUtils;
@@ -28,57 +33,119 @@ public class CustomerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		String ssn = request.getParameter("ssn_text");
 		Customer test = MyUtils.getCustomer(request.getSession());
+		String ssn = test.getId();
+		ArrayList<String> movieNames = null;
 
 		System.out.println(action);
-		System.out.println(ssn);
-		if (ssn == null) {
-			ssn = test.getId();
-		}
-		System.out.println(test);
 
 		Person person = null;
 		boolean hasError = false;
 		String errorString = null;
+		ArrayList<Order> orders = null;
+		ArrayList<MovieList> movies = null;
 
 		// Redirect to home
-		if (ssn == null || ssn.length() != 11) {
-			response.sendRedirect("http://localhost:8080/MovieMoose/");
-			return;
-		} else {
-			// Valid SSN I guess.
-			Connection conn = MyUtils.getStoredConnection(request);
-			try {
 
-				person = DBUtils.findPerson(conn, ssn);
+		// Valid SSN I guess.
+		Connection conn = MyUtils.getStoredConnection(request);
+		if (action != null) {
+			if (action.equals("1")) {
 
-				if (person == null) {
+				try {
+					movieNames = DBUtils.currentlyHeldMovies(conn, ssn);
+				} catch (SQLException e) {
+					e.printStackTrace();
 					hasError = true;
-					errorString = "SSN invalid";
-				} else {
-					System.out.println(person.getFirstName());
-					System.out.println(person.getLastName());
-					MyUtils.storeLoginedUser(request.getSession(), person);
+					errorString = e.getMessage();
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				hasError = true;
-				errorString = e.getMessage();
+				request.setAttribute("movieNames", movieNames);
+
+				RequestDispatcher dispatcher = request.getServletContext()
+						.getRequestDispatcher("/WEB-INF/customer_checkout.jsp");
+
+				dispatcher.forward(request, response);
+				return;
 			}
+
+			if (action.equals("2")) {
+				try {
+					movieNames = DBUtils.customerqueue(conn, ssn);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					hasError = true;
+					errorString = e.getMessage();
+				}
+				request.setAttribute("movieQueue", movieNames);
+
+				RequestDispatcher dispatcher = request.getServletContext()
+						.getRequestDispatcher("/WEB-INF/customer_wishlist.jsp");
+
+				dispatcher.forward(request, response);
+				return;
+			}
+
+			if (action.equals("3")) {
+				try {
+					orders = DBUtils.historyOrders(conn, ssn);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					hasError = true;
+					errorString = e.getMessage();
+				}
+				request.setAttribute("Orders", orders);
+
+				RequestDispatcher dispatcher = request.getServletContext()
+						.getRequestDispatcher("/WEB-INF/customer_history.jsp");
+
+				dispatcher.forward(request, response);
+				return;
+
+			}
+
+			if (action.equals("4")) {
+				try {
+					movies = DBUtils.bestseller(conn);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					hasError = true;
+					errorString = e.getMessage();
+				}
+				request.setAttribute("Movies", movies);
+
+				RequestDispatcher dispatcher = request.getServletContext()
+						.getRequestDispatcher("/WEB-INF/customer_best_selling_movies.jsp");
+
+				dispatcher.forward(request, response);
+				return;
+
+			}
+
+			if (action.equals("5")) {
+				try {
+					movies = DBUtils.recommended(conn, ssn);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					hasError = true;
+					errorString = e.getMessage();
+				}
+				request.setAttribute("Movies", movies);
+
+				RequestDispatcher dispatcher = request.getServletContext()
+						.getRequestDispatcher("/WEB-INF/customer_recommended.jsp");
+
+				dispatcher.forward(request, response);
+				return;
+
+			}
+
 		}
 
-		// Store info in request attribute, before forward to views
-		request.setAttribute("errorString", errorString);
-		request.setAttribute("person", person);
-		request.setAttribute("action", action);
-		request.setAttribute("ssn", ssn);
 		// Forward to /WEB-INF/views/homeView.jsp
 		// (Users can not access directly into JSP pages placed in WEB-INF)
 		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/customerView.jsp");
 
 		dispatcher.forward(request, response);
-
 	}
 
 	@Override
