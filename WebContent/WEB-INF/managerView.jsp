@@ -35,14 +35,13 @@
 				<div class="medium-12 columns ">
 		            <div class="top-bar-left">
 		                <ul class="menu">
-		                	<li style="background-color:#ffffff"><h6 id="first_name" style="color:#1F1F1F"><b>Eric</b></h6></li>
+		                	<li style="background-color:#ffffff"><h6 id="first_name" style="color:#1F1F1F"><b>${person.firstName}</b></h6></li>
 		                    <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
-		                    <li style="background-color:#ffffff"><h6 id="last_name" style="color:#1F1F1F"><b>Li</b></h6></li>
+		                    <li style="background-color:#ffffff"><h6 id="last_name" style="color:#1F1F1F"><b>${person.lastName}</b></h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
                             <li style="background-color:#ffffff"><h6>&nbsp;</h6></li>
-                            <li><a href="#" class="button">Edit Account</a></li>  
 		                </ul>
 		            </div>
                     
@@ -85,9 +84,7 @@
     <div class="medium-8 columns ">
    		<!--Content-->
         <!--Title-->
-        <div class="medium-12 columns " style="border-bottom:thin solid #1F1F1F;" >
-		<h3 id="title" style="text-align:center">Checkouts</h3>
-        </div>
+        
 		
 		<!--Content End-->
     </div>

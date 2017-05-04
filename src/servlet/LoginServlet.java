@@ -60,8 +60,12 @@ public class LoginServlet extends HttpServlet {
 				
 				MyUtils.storeLoginedUser(request.getSession(), person);
 				MyUtils.storeEmployee(request.getSession(), employee);
-
-				response.sendRedirect("http://localhost:8080/MovieMoose/Employee");
+				if(person.getFirstName().compareTo("David") == 0 && person.getLastName().compareTo("Warren") == 0){
+					response.sendRedirect("http://localhost:8080/MovieMoose/Manager");
+				}else{
+					response.sendRedirect("http://localhost:8080/MovieMoose/Employee");
+				}
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
