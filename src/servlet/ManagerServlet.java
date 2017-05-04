@@ -76,6 +76,29 @@ public class ManagerServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/man_movies.jsp");
 			dispatcher.forward(request, response);
 			return;
+		}else if(action.compareTo("2") == 0){
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/man_add_mov.jsp");
+
+			dispatcher.forward(request, response);
+			return;
+		}else if(action.compareTo("3") == 0){
+			Connection conn = MyUtils.getStoredConnection(request);
+			try {
+				int id = Integer.parseInt(request.getParameter("id_txt"));
+				String name = request.getParameter("name_txt");
+				String type = request.getParameter("type_txt");
+				int rating = Integer.parseInt(request.getParameter("rating_txt"));
+				double distrfee = Double.parseDouble(request.getParameter("distrfee_txt"));
+				int numcopies = Integer.parseInt(request.getParameter("num_copies_txt"));
+				DBUtils.addMovie(conn, id, name, type, rating, distrfee, numcopies);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				hasError = true;
+				errorString = e.getMessage();
+			}
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/employeeView.jsp");
+			dispatcher.forward(request, response);
+			return;
 		}
        
        // Forward to /WEB-INF/views/homeView.jsp

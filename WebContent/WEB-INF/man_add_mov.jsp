@@ -96,8 +96,14 @@
     	<form method="POST" action="Manager?action=3">
     		<div class="medium-8 medium-centered columns" style="margin-top:15%; margin-bottom:15%;">
     			<div class="row">
+    				<div class="medium-4 columns ">
+            			<label style="padding:9px 0px"><b>ID:</b></label>
+    				</div>
+            		<div class="medium-8 columns ">
+      					<input name="id_txt" type="text" placeholder="Enter the ID" />
+    				</div>
 		           	<div class="medium-4 columns ">
-            			<label style="padding:9px 0px"><b>Name</b></label>
+            			<label style="padding:9px 0px"><b>Name:</b></label>
     				</div>
             		<div class="medium-8 columns ">
       					<input name="name_txt" type="text" placeholder="Enter the name" />
@@ -118,7 +124,7 @@
             			<label style="padding:9px 0px"><b>Distr Fee:</b></label>
     				</div>
             		<div class="medium-8 columns ">
-      					<input name="distr_fee_txt" type="text" placeholder="Enter the distr fee" />
+      					<input name="distrfee_txt" type="text" placeholder="Enter the distr fee" />
     				</div>
     				<div class="medium-4 columns ">
             			<label style="padding:9px 0px"><b>Num of Copies:</b></label>
