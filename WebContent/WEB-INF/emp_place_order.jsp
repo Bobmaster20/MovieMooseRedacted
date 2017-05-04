@@ -96,20 +96,20 @@
         <!--Title-->
         
         <div class="medium-12 columns" style="border-bottom:thin solid #1F1F1F;" ><h3 id="title" style="text-align:center">Place Order</h3></div>
-    	<form method="POST" action="placeOrder">
+    	<form method="POST" action="Employee?action=3">
     		<div class="medium-8 medium-centered columns" style="margin-top:15%; margin-bottom:15%;">
     			<div class="row">
 		           	<div class="medium-4 columns ">
             			<label style="padding:9px 0px"><b>Movie ID:</b></label>
     				</div>
             		<div class="medium-8 columns ">
-      					<input name="ccn_input" type="text" placeholder="Enter the movie ID" />
+      					<input name="mov_id_txt" type="text" placeholder="Enter the movie ID" />
     				</div>
     				<div class="medium-4 columns ">
             			<label style="padding:9px 0px"><b>Account ID:</b></label>
     				</div>
             		<div class="medium-8 columns ">
-      					<input name="ccn_input" type="text" placeholder="Enter the account ID" />
+      					<input name="acc_id_txt" type="text" placeholder="Enter the account ID" />
     				</div>
   				</div>
         		<div class="top-bar-right">

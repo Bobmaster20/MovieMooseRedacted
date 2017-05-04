@@ -19,6 +19,8 @@ import beans.Person;
 import utils.DBUtils;
 import utils.MyUtils;
 
+
+
 @WebServlet(urlPatterns = { "/Employee" })
 public class EmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -70,6 +72,22 @@ public class EmployeeServlet extends HttpServlet {
 			}
 			request.setAttribute("mailingList", list);
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/emp_cust_email.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}else if(action.equals("3")){
+			// Valid SSN I guess.
+			Connection conn = MyUtils.getStoredConnection(request);
+			try {
+				int employeeID = employee.getId();
+				int movieID = Integer.parseInt(request.getParameter("mov_id_txt"));
+				int accountID = Integer.parseInt(request.getParameter("acc_id_txt"));
+				DBUtils.placeOrder(conn, movieID, accountID, employeeID);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				hasError = true;
+				errorString = e.getMessage();
+			}
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/EmployeeView.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
